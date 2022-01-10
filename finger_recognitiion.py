@@ -4,22 +4,24 @@ import csv
 
 def finger_stand(points):
     fingers = []
-    # if (points['y'][4] < points['y'][2]): # 拇指
-    #     fingers.append(0)
-    if (points['y'][8] < points['y'][6]): # 食指
-        fingers.append(1)
-    if (points['y'][12] < points['y'][10]): # 中指
-        fingers.append(2)
-    if (points['y'][16] < points['y'][14]): # 無名指
-        fingers.append(3)
-    if (points['y'][20] < points['y'][18]): # 小指
-        fingers.append(4)
+    hands = int(points.shape[0]//21)
+    for i in range(hands):
+        if (points['y'][i+4] < points['y'][i+5]): # 拇指
+            fingers.append(0+5*i)
+        if (points['y'][i+8] < points['y'][i+6]): # 食指
+            fingers.append(1+5*i)
+        if (points['y'][i+12] < points['y'][i+10]): # 中指
+            fingers.append(2+5*i)
+        if (points['y'][i+16] < points['y'][i+14]): # 無名指
+            fingers.append(3+5*i)
+        if (points['y'][i+20] < points['y'][i+18]): # 小指
+            fingers.append(4+5*i)
     return fingers
 
 def ishid0(points):
     x_diff = max(abs(points['x'][5] - points['x'][9]), abs(points['x'][6] - points['x'][10]), abs(points['x'][7] - points['x'][11]), abs(points['x'][8] - points['x'][12]))
     fingers = finger_stand(points)
-    if (fingers == [1, 2]) & (x_diff < 50):
+    if ((fingers == [1, 2]) | (fingers == [6, 7])) & (x_diff < 50):
         return True
     else:
         return False
