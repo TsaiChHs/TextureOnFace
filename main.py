@@ -1,8 +1,6 @@
 import cv2
 import mediapipe as mp
 import numpy as np
-import statistics
-import math
 from FaceTexture import hand2Texture
 
 mp_hands = mp.solutions.hands
@@ -64,11 +62,7 @@ def main():
 
                     hID = fingerRecognitiion(check_points)
 
-        mp_face_mesh = mp.solutions.face_mesh
-        with mp_face_mesh.FaceMesh(
-        min_detection_confidence=0.5,
-        min_tracking_confidence=0.5) as face_mesh:
-            hand2Texture(hID, image, face_mesh)
+        hand2Texture(hID, image)
 
         # Flip the image horizontally for a selfie-view display.
         # cv2.imshow('MediaPipe Hands', cv2.flip(image, 1))

@@ -57,10 +57,16 @@ def redEye(frame, face_mesh):
                 pass
     return frame
 
-def hand2Texture(hID, frame, face_mesh):
-    if hID == -1:
-        pass
-    elif hID == 0:
-        redEye(frame, face_mesh)
+def hand2Texture(hID, frame):
+    mp_face_mesh = mp.solutions.face_mesh
+    with mp_face_mesh.FaceMesh(
+    refine_landmarks=True,
+    max_num_faces=1,
+    min_detection_confidence=0.5,
+    min_tracking_confidence=0.5) as face_mesh:
+        if hID == -1:
+            pass
+        elif hID == 0:
+            redEye(frame, face_mesh)
 
     cv2.imshow("MediaPipe FaceMesh", frame)
